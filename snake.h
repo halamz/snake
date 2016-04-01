@@ -4,8 +4,12 @@ using namespace std;
 
 class snake
 {
+private:
+	int r, c;
 public:
-	snake();
+	snake(int , int);
+	void print();
+	int move();
 	~snake();
 };
 
