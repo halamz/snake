@@ -1,6 +1,7 @@
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_primitives.h>
 
+enum KEYS{DOWN,UP,RIGHT,LEFT};
 int main(void)
 {
 
@@ -10,6 +11,9 @@ int main(void)
 	bool done = false;
 	int pos_x = width / 2;
 	int pos_y = height / 2;
+
+	bool keys[4] = { false, false, false, false };
+
 
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
@@ -41,28 +45,50 @@ int main(void)
 			switch (ev.keyboard.keycode)
 			{
 			case ALLEGRO_KEY_UP:
-				pos_y -= 10;
+				keys[UP] = true;
 				break;
 			case ALLEGRO_KEY_DOWN:
-				pos_y += 10;
+				keys[DOWN] = true;
 				break;
 			case ALLEGRO_KEY_LEFT:
-				pos_x -= 10;
+				keys[LEFT] = true;
 				break;
 			case ALLEGRO_KEY_RIGHT:
-				pos_x += 10;
+				keys[RIGHT] = true;
 				break;
 			}
 		}
 		else if (ev.type == ALLEGRO_EVENT_KEY_UP)
 		{
-			if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+			switch (ev.keyboard.keycode)
+			{
+			case ALLEGRO_KEY_UP:
+				keys[UP] = false;
+				break;
+			case ALLEGRO_KEY_DOWN:
+				keys[DOWN] = false;
+				break;
+			case ALLEGRO_KEY_LEFT:
+				keys[LEFT] = false;
+				break;
+			case ALLEGRO_KEY_RIGHT:
+				keys[RIGHT] = false;
+				break;
+			case ALLEGRO_KEY_ESCAPE:
 				done = true;
+				break;
+			}
 		}
 		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 		{
 			done = true;
 		}
+
+		pos_y -= keys[UP] * 10; 
+		pos_y += keys[DOWN] * 10;
+		pos_x -= keys[LEFT] * 10;
+		pos_x += keys[RIGHT] * 10;
+
 		al_draw_filled_rectangle(pos_x, pos_y, pos_x + 30, pos_y + 30, al_map_rgb(255, 0, 255));
 		al_flip_display();
 		al_clear_to_color(al_map_rgb(0, 0, 0));
