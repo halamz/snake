@@ -3,6 +3,7 @@
 
 int main(void)
 {
+
 	int width = 640;
 	int height = 480;
 
@@ -17,8 +18,8 @@ int main(void)
 		return -1;
 
 	display = al_create_display(width, height);
-	
-	if (display)
+
+	if (!display)
 		return - 1;
 
 	al_init_primitives_addon();
@@ -32,8 +33,9 @@ int main(void)
 	while (!done)
 	{
 		ALLEGRO_EVENT ev;
-		al_wait_for_event(event_queue, &ev); //allegro, wait for something to happend (poor design for game development)
 
+		al_wait_for_event(event_queue, &ev); //allegro, wait for something to happend (poor design for game development)
+		
 		if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
 		{
 			switch (ev.keyboard.keycode)
@@ -57,11 +59,13 @@ int main(void)
 			if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				done = true;
 		}
+		
 		al_draw_filled_rectangle(pos_x, pos_y, pos_x + 30, pos_y + 30, al_map_rgb(255, 0, 255));
 		al_flip_display();
 		al_clear_to_color(al_map_rgb(0, 0, 0));
+		
 	}
-
+	
 	al_destroy_display(display);
 
 	return 0;
