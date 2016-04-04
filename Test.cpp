@@ -89,7 +89,7 @@ int main(void)
 		pos_x -= keys[LEFT] * 10;
 		pos_x += keys[RIGHT] * 10;
 
-		l_convert_mask_to_alpha(image, al_map_rgb(255, 0, 255));
+		al_draw_filled_rectangle(pos_x, pos_y, pos_x + 30, pos_y + 30, al_map_rgb(255, 0, 255));
 		al_flip_display();
 		al_clear_to_color(al_map_rgb(0, 0, 0));
 		
