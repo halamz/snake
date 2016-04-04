@@ -5,11 +5,12 @@ int main()
 	snake obj(9,9);
 	obj.print();
 }*/
-#include <allegro5\allegro.h>
+#include <allegro5/allegro.h>
 #include<allegro5\allegro_native_dialog.h>
 
-int main()
+int main(int argc, char*argvc[])
 {
+
 	ALLEGRO_DISPLAY *display = NULL;
 
 	if (!al_init())
