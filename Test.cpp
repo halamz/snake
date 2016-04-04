@@ -28,7 +28,7 @@ int main(void)
 	event_queue = al_create_event_queue();
 
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
-	
+	al_register_event_source(event_queue, al_get_display_event_source(display));
 
 	while (!done)
 	{
@@ -59,7 +59,10 @@ int main(void)
 			if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 				done = true;
 		}
-		
+		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+		{
+			done = true;
+		}
 		al_draw_filled_rectangle(pos_x, pos_y, pos_x + 30, pos_y + 30, al_map_rgb(255, 0, 255));
 		al_flip_display();
 		al_clear_to_color(al_map_rgb(0, 0, 0));
